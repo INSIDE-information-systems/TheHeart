@@ -4,15 +4,12 @@ from time import sleep
 
 class HumiditySensor():
 
-    # def __init__(self,i2c,sensor):
-    #     self.i2c = I2C(scl=Pin(22), sda=Pin(23))
-    #     self.sensor = BME280(i2c=i2c)
     @property
     def getValue(self):
-        return bme.getHumidite()
+        return bme.getHumidite
 
 i2c = I2C(scl=Pin(22), sda=Pin(23))
 bme = BME280(i2c=i2c)
 
-bme280 = HumiditySensor()
-bme280.getValue()
+bme280Humidity = HumiditySensor()
+bme280Humidity.getValue
