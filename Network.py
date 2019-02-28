@@ -12,7 +12,7 @@ class Network:
             time.sleep(2.5)
             print('Not yet joined...')
 
-    def send(): # TODO: optimise for power efficiency
+    def send(msg): # TODO: optimise for power efficiency + check message lenght (with len(str.encode()) ?)
         # create a LoRa socket
         s = socket.socket(socket.AF_LORA, socket.SOCK_RAW)
         # set the LoRaWAN data rate
@@ -22,7 +22,7 @@ class Network:
         s.setblocking(True)
 
         # send some data
-        s.send("test4, paquet:"+str(i))#[0x01, 0x02, 0x03]))
+        s.send(msg)#[0x01, 0x02, 0x03]))
         time.sleep(10)
 
         # make the socket non-blocking

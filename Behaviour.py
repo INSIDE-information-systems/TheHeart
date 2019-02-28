@@ -1,5 +1,6 @@
 from modes import Modes
 import machine
+import SensorThings
 
 class Behaviour:
     def __init__(self, network, config):
@@ -22,12 +23,16 @@ class Behaviour:
 
     def periodic():
         value = sensor.getValue()
+        # TODO: SensorThings
         network.send(value)
 
     def responsive():
         machine.pin_deepsleep_wakeup(["P13"], machine.WAKEUP_ANY_HIGH, False)# TODO: set the right pin
-        value = sensor.getValue()
-        network.send(value)
+        if machine.wake_reason()[0] == machine.PIN_WAKE:
+            #if machine.wake_reason()[1] == the pin of the pir sensor
+            value = sensor.getValue()
+            network.send(value)
+        # TODO: what should be done if the wakeup is triggered by the button?
 
     def performance():
         while (not self.network.hasMessage()):
