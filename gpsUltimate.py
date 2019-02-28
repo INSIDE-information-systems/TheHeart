@@ -4,6 +4,7 @@ import utime as time
 from time import sleep
 import adafruit_gps
 from adafruit_gps import *
+from math import sin, cos, sqrt, atan2, radians
 
 class UltimateGPS:
     def __init__(self):
@@ -34,6 +35,13 @@ class UltimateGPS:
         sec = str(gps.timestamp_utc[5])
         date = day+"/"+month+"/"+year+" "+hour+":"+minute+":"+sec
         return date
+    def calculDistance(lat1,lat2,lon1,lon2):
+        R = 6373.0
+        dlon = lon2 - lon1
+        dlat = lat2 - lat1
+        a = sin(dlat / 2)**2 + cos(lat1) * cos(lat2) * sin(dlon / 2)**2
+        c = 2 * atan2(sqrt(a), sqrt(1 - a))
+        return R * c
 
 uart = UART(2, baudrate=9600)
 uart.init(9600, bits=8, parity=None, stop=1, tx=17,rx=16)
