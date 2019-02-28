@@ -1,25 +1,30 @@
+import Memory
+import Modes
+
 class Configuration:
-    def __init__(self, id, sensorDriver, mode, freq, app_eui, app_key):
-        self.id = id # TODO: find a more elegant way to do that
-        self.sensorDriver = sensorDriver
-        self.mode = mode
-        ## TODO: check frequency?
-        self.freq = freq #time in minutes
-        self.app_eui = app_eui
-        self.app_key = app_key
 
     def __init__(self, jsonString):
-        loadedObject = ujson.loads(jsonString)
+        loadedObject = ujson.loads(Memory.restore())
         self.id = loadedObject[id]
-        self.sensorDriver = loadedObject[sensorDriver]
-        self.mode = loadedObject[mode]
-        self.freq = loadedObject[freq]
-        # TODO: instanciate sensor object
+        self.app_eui = app_eui
+        self.app_key = app_key
+        try:
+            self.sensorDriver = loadedObject[sensorDriver]
+            self.mode = loadedObject[mode]
+            self.freq = loadedObject[freq]
+        except Exception as e:
+            self.sensorDriver = None
+            self.mode = Modes.Modes.OFF
+            self.freq = 60 # TODO: what should be the default frequency?
 
     def applyConfiguration(jsonString):
-        loadedObject = ujson.loads(jsonString)
-        self.id = loadedObject[id]
-        self.sensorDriver = loadedObject[sensorDriver]
-        self.mode = loadedObject[mode]
-        self.freq = loadedObject[freq]
-        # TODO: instanciate sensor object
+        try:
+            loadedObject = ujson.loads(jsonString)
+            self.sensorDriver = loadedObject[sensorDriver]
+            self.mode = loadedObject[mode]
+            self.freq = loadedObject[freq]
+            ## TODO: check frequency
+        except Exception as e:
+            # TODO: send a lora message to warn the user the configuration was wrong
+            # TODO: use default configuration
+            pass
