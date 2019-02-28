@@ -3,9 +3,19 @@ class Configuration:
         self.id = id # TODO: find a more elegant way to do that
         self.sensorDriver = sensorDriver
         self.mode = mode
+        ## TODO: check frequency?
         self.freq = freq #time in minutes
         self.app_eui = app_eui
         self.app_key = app_key
+
+    def __init__(self, jsonString):
+        loadedObject = ujson.loads(jsonString)
+        self.id = loadedObject[id]
+        self.sensorDriver = loadedObject[sensorDriver]
+        self.mode = loadedObject[mode]
+        self.freq = loadedObject[freq]
+        # TODO: instanciate sensor object
+
     def applyConfiguration(jsonString):
         loadedObject = ujson.loads(jsonString)
         self.id = loadedObject[id]

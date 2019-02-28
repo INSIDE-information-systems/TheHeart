@@ -1,5 +1,9 @@
-# TODO: machine.wake_reason()
+import GPS
+import Network
+import Memory
+import Behaviour
 
-# TODO: 1 instanciante a configuration object (default or from memory)
-# TODO: 2 instanciate network and GPS
-# TODO: 4 instanciate Behaviour
+gps = GPS.GPS() #GPS first to save time (fixing coordinates can be quite long)
+configuration = Configuration.Configuration(Memory.restore()) # TODO: what if there is no configuration saved
+network = Network.Network()
+Behaviour.Behaviour(network, configuration)
