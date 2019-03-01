@@ -5,9 +5,11 @@ from time import sleep
 import adafruit_gps
 from adafruit_gps import *
 from math import sin, cos, sqrt, atan2, radians
+import utime
 
 class UltimateGPS:
     def __init__(self):
+        self.startTime = utime.ticks_ms()
         # this uses the UART_1 default pins for TXD and RXD (``P3`` and ``P4``)
         uart = UART(1, baudrate=9600)
 
@@ -21,10 +23,13 @@ class UltimateGPS:
         gps.send_command('PMTK220,1000')
         gps.update()
     def isFixed(self):
-        if not gps.has_fix:
-            gps.update()
-            return False
-        return True
+        if (utime.ticks_ms()-self.startTime)/1000<600: #GPS fix timeout = 10 mins
+            if not gps.has_fix:
+                gps.update()
+                return False
+            return True
+        else:
+            raise Exception("GPS timeout") # TODO: custom exception 
 
     def getLocation(self):
         return (gps.latitude,gps.longitude)
