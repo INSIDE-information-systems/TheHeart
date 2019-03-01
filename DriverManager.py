@@ -2,6 +2,7 @@ from bme280 import *
 from bme280_humidity import *
 from bme280_temp import *
 from bme280_pression import *
+from pir import *
 
 class DriverManager:
 
@@ -15,12 +16,18 @@ class DriverManager:
         elif userChoice == liste[2]:
             print("ChosenSensor :",userChoice)
             return bme280Humidity.getValue
+        elif userChoice == liste[3]:
+            print("ChosenSensor :",userChoice)
+            return pir.getValue
         else:
-            return bme280Temperature.getValue
+            return "Sensor not supported"
+
+    def isSensorSupported(self, sensorName):
+        return sensorName in liste
 
 #userChoice = getChosenDriver()
 userChoice = input()
-liste = ("temperatureSensor","pressionSensor","humiditySensor","si1145","vl53l0")
+liste = ("temperatureSensor","pressionSensor","humiditySensor","PIR","si1145","vl53l0")
 driverManger = DriverManager()
 value = driverManger.driver(userChoice)
 print(value)
