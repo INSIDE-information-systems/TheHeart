@@ -1,4 +1,7 @@
 import ujson
+import gpsUltimate
+import Power
+import DriverManager
 
 #La classe SensorThings sert à mettre en forme un message au format json utilisable par SensorThings API
 class SensorThings :
@@ -7,10 +10,9 @@ class SensorThings :
 #coordonnées(latitute en °, longitude en °)
 #La fonction retourne le message de position au format json pour sensorThings API
     def sensorthingify_location(gps):
-        #if(positionChange() == true):
         msg_location = {
-            "coordinates" : gps
-            #"coordinates" : gps.getLocation()
+            #"coordinates" : gps
+            "coordinates" : gps.getLocation()
                 }
         return ujson.dumps(msg_location)
 
@@ -22,15 +24,25 @@ class SensorThings :
 #La fonction retourne le message de l'observation au format json pour sensorThings API
     def sensorthingify_observation(gps, battery, value):
         parameters = {
-        #"battery" : battery.getBattery
-        "battery" : battery
+        "battery" : battery.getBattery
+        #"battery" : battery
         }
 
         msg_observation = {
-            #"resultTime" : gps.getTime,
-            "resultTime" : gps,
-            "result" : value.getTemperature,
+            "resultTime" : gps.getTime,
+            #"resultTime" : gps,
+            "result" : value.getValue,
             "parameters" : parameters
         }
         #print(msg)
         return ujson.dumps(msg_observation)
+
+    def sensorThingify():
+        updateLocation = UltimateGPS.UltimateGPS.calculDistance()
+        msg_obs = SensorThings.SensorThings.sensorthingify_observation()
+
+        if(updateLocation>=5):
+            msg_loc = SensorThings.SensorThings.sensorthingify_location()
+            return message = [msg_loc,msg_obs]
+        elif:
+            return message = [msg_obs]
