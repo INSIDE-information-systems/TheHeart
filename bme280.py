@@ -1,5 +1,3 @@
-
-
 import time
 from ustruct import unpack, unpack_from
 from array import array
