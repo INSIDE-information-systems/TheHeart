@@ -8,8 +8,13 @@ from math import sin, cos, sqrt, atan2, radians
 
 class UltimateGPS:
     def __init__(self):
-        uart = UART(2, baudrate=9600)
-        uart.init(9600, bits=8, parity=None, stop=1, tx=17,rx=16)
+        # this uses the UART_1 default pins for TXD and RXD (``P3`` and ``P4``)
+        uart = UART(1, baudrate=9600)
+
+        #uart = UART(1, baudrate=9600, pins=('P20','P21'))
+
+        #uart = UART(2, baudrate=9600)
+        #uart.init(9600, bits=8, parity=None, stop=1, tx=17,rx=16)
 
         gps = adafruit_gps.GPS(uart)
         gps.send_command('PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0')
@@ -43,8 +48,8 @@ class UltimateGPS:
         c = 2 * atan2(sqrt(a), sqrt(1 - a))
         return R * c
 
-uart = UART(2, baudrate=9600)
-uart.init(9600, bits=8, parity=None, stop=1, tx=17,rx=16)
+# this uses the UART_1 default pins for TXD and RXD (``P3`` and ``P4``)
+uart = UART(1, baudrate=9600)
 
 gps = adafruit_gps.GPS(uart)
 ultimate = UltimateGPS()
