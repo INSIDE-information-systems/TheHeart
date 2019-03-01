@@ -16,8 +16,7 @@ class DriverManager:
             print("ChosenSensor :",userChoice)
             return bme280Humidity.getValue
         else:
-            print("please, choose your sensor")
-            userChoice = input()
+            return bme280Temperature.getValue
 
 #userChoice = getChosenDriver()
 userChoice = input()

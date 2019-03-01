@@ -23,6 +23,7 @@ class UltimateGPS:
     def isFixed(self):
         if not gps.has_fix:
             gps.update()
+            return False
         return True
 
     def getLocation(self):
@@ -56,7 +57,7 @@ ultimate = UltimateGPS()
 # while not gps.has_fix:
 #     gps.update()
 print("has_fix: ",ultimate.isFixed())
-print("date: ",ultimate.getTime())
+print("date: ",ultimate.getTime)
 print("Lat: ",ultimate.getLatitude())
 print("Long: ",ultimate.getLongitude())
 print("location: ",ultimate.getLocation())

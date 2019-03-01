@@ -1,5 +1,4 @@
-from enum import Enum
-class Modes(Enum):
+class Modes():
     OFF = 0
     PERIODIC = 1
     RESPONSIVE = 2

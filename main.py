@@ -1,10 +1,11 @@
-import GPS
+import gpsUltimate
 import Network
 import Behaviour
 import Measurement
+import Configuration
 
-gps = GPS.GPS() #GPS init first to save time (fixing coordinates can be quite long)
-measurement = Measurement(gps)
+gps = gpsUltimate.UltimateGPS() #GPS init first to save time (fixing coordinates can be quite long)
+measurement = Measurement.Measurement(gps)
 configuration = Configuration.Configuration() # TODO: what if there is no configuration saved
 network = Network.Network()
 Behaviour.Behaviour(network, configuration, measurement)

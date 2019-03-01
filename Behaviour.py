@@ -9,11 +9,11 @@ class Behaviour:
         self.measurement = measurement
         self.sleepTime = 1000*60*self.configuration.frequency # TODO: find a more elegant way to set the time
 
-        if self.mode = Modes.PERIODIC:
+        if self.mode == Modes.PERIODIC:
             self.periodic()# TODO: check frequency
-        elif self.mode = Modes.RESPONSIVE:
+        elif self.mode == Modes.RESPONSIVE:
             self.responsive()
-        elif self.mode = Modes.PERFORMANCE:
+        elif self.mode == Modes.PERFORMANCE:
             self.performance()# TODO: check frequency
 
         if self.network.hasMessage():
