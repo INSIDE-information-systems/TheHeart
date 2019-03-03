@@ -22,7 +22,7 @@ class Behaviour:
         machine.deepsleep(self.sleepTime)
 
     def periodic():
-        self.measurement.measure(self.config.sensorName)
+        self.measurement.measure(self.configuration.sensorName)
         msg = SensorThings.sensorthingify(self.measure)
         network.send(msg)
 
@@ -31,13 +31,13 @@ class Behaviour:
         # TODO: what should be done if the wakeup is triggered by the button?
         #if machine.wake_reason()[1] == the pin of the pir sensor
         if machine.wake_reason()[0] == machine.PIN_WAKE:
-            self.measurement.measure(self.config.sensorName) # TODO: pir sensor driver
+            self.measurement.measure(self.configuration.sensorName) # TODO: pir sensor driver
             msg = SensorThings.sensorthingify(self.measure)
             network.send(msg)
 
     def performance():
         while (not self.network.hasMessage()):
-            self.measurement.measure(self.config.sensorName) # TODO: pir sensor driver
+            self.measurement.measure(self.configuration.sensorName) # TODO: pir sensor driver
             msg = SensorThings.sensorthingify(self.measure)
             network.send(msg)
             utime.sleep_ms(self.sleepTime)
