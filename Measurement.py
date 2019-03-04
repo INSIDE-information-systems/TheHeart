@@ -6,10 +6,11 @@ class Measurement:
         self.value = None
         self.location = None
         self.date = None
-    def measure(sensorName):
+    def measure(self, sensorName):
         try:
             self.value = DriverManager.driver(sensorName)
         except Exception as e:
+            pass
             # TODO: how to report a Measurement error?
-        self.date = gps.getTime()
-        self.location = gps.getLocation()
+        self.date = self.gpsInstance.getTime()
+        self.location = self.gpsInstance.getLocation()
