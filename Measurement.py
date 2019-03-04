@@ -28,5 +28,5 @@ class Measurement:
             print("measurement located")
         except Exception as e:
             print(e)
-            # TODO: handle gps timeout
+            # TODO: handle gps timeout : custom ex
             pass

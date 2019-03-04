@@ -8,7 +8,7 @@ class Behaviour:
         self.network = network
         self.sessionData = SessionData
         self.measurement = measurement
-        self.sleepTime = 1000*60*self.sessionData.userConfiguration["frequency"] # TODO: find a more elegant way to set the time
+        self.sleepTime = 1000*60*self.sessionData.userConfiguration["frequency"] 
 
         if self.sessionData.userConfiguration["mode"] == Modes.PERIODIC:
             self.periodic()# TODO: check frequency
@@ -23,7 +23,6 @@ class Behaviour:
                 self.sessionData.applyConfiguration(self.network.getMessage())
             except Exception as e:
                 print(e)
-
 
         print("Deepsleep")
         machine.deepsleep(self.sleepTime)
