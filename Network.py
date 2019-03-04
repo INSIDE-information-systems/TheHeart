@@ -1,12 +1,14 @@
 from network import LoRa
 import socket
+import ubinascii
+import time
 
 class Network:
     def __init__(self, config):
         self.data = None
         self.lora = LoRa(mode=LoRa.LORAWAN, region=LoRa.EU868, sf=12, device_class = LoRa.CLASS_A)
-        app_eui = ubinascii.unhexlify(config.app_eui)
-        app_key = ubinascii.unhexlify(config.app_key)
+        app_eui = ubinascii.unhexlify(config.staticConfiguration["appeui"])
+        app_key = ubinascii.unhexlify(config.staticConfiguration["appkey"])
         self.lora.join(activation=LoRa.OTAA, auth=(app_eui, app_key), timeout=0)
         while not self.lora.has_joined():#replace by async
             time.sleep(2.5)
