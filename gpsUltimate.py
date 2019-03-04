@@ -48,10 +48,6 @@ class UltimateGPS:
     def calculDistance(lat1,lat2,lon1,lon2):
         dlon = lon2 - lon1
         dlat = lat2 - lat1
-        if dlat>0.00001 and dlon>0.00001:
-            print("update")
-            return True
-        #TODO: "Rectifier le calcul"
 
 # this uses the UART_1 default pins for TXD and RXD (``P3`` and ``P4``)
 uart = UART(1, baudrate=9600)
