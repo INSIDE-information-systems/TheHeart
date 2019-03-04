@@ -10,16 +10,12 @@ class DriverManager:
 
     def driverByName(self, userChoice):
         if userChoice == self.liste[0]:
-            print("ChosenSensor :",userChoice)
             return bme280Temperature.getValue
         elif userChoice == self.liste[1]:
-            print("ChosenSensor :",userChoice)
             return bme280Pression.getValue
         elif userChoice == self.liste[2]:
-            print("ChosenSensor :",userChoice)
             return bme280Humidity.getValue
         elif userChoice == self.liste[3]:
-            print("ChosenSensor :",userChoice)
             return pir.getValue
         else:
             raise Exception("Sensor not supported")
