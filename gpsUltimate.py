@@ -50,7 +50,6 @@ class UltimateGPS:
         if dlat>0.00001 and dlon>0.00001:
             print("update")
             return True
-        #: "Rectifier le calcul"
 
 # this uses the UART_1 default pins for TXD and RXD (``P3`` and ``P4``)
 uart = UART(1, baudrate=9600)

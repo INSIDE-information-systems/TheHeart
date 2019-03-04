@@ -11,7 +11,9 @@ class SessionData:
         except Exception as e:
             print("static configuration:")
             print(e)
-            # TODO: what should we do if the Heart is not configured at all?
+
+            machine.deepsleep()
+
 
         try:
             self.userConfiguration = ujson.loads(FlashMemory.FlashMemory.restore("user"))
@@ -21,7 +23,7 @@ class SessionData:
             self.userConfiguration = {
                 "mode" : Modes.Modes.OFF,
                 "sensorName" : None,
-                "frequency" : 60 # TODO: should the default frequency be 1 hour?
+                "frequency" : 360
             }
 
         try:
@@ -49,8 +51,10 @@ class SessionData:
             self.userConfiguration["frequency"] = sensorMode[newConfiguration["sensorParameter"]["collectPeriod"]]
         except KeyError as e:
             pass
-        # TODO: parse from sensorthing format
 
     def saveGPS(gps):
-        FlashMemory.FlashMemory.save("gps",ujson.dumps(gps))
-        # TODO: check if gps is serializable
+        try:
+            FlashMemory.FlashMemory.save("gps",ujson.dumps(gps))
+        except Exception as e:
+            print("Error saving GPS")
+            print(e)

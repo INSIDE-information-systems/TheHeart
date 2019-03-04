@@ -28,7 +28,7 @@ class Network:
         s.setblocking(True)
 
         # send some data
-        # TODO: msg is a list?
+        # Send each and every msg in the list 
         s.send(msg[0])#[0x01, 0x02, 0x03]))
         time.sleep(10)
 
