@@ -46,12 +46,8 @@ class UltimateGPS:
         date = day+"/"+month+"/"+year+" "+hour+":"+minute+":"+sec
         return date
     def calculDistance(lat1,lat2,lon1,lon2):
-        R = 6373.0
         dlon = lon2 - lon1
         dlat = lat2 - lat1
-        a = sin(dlat / 2)**2 + cos(lat1) * cos(lat2) * sin(dlon / 2)**2
-        c = 2 * atan2(sqrt(a), sqrt(1 - a))
-        return R * c
 
 # this uses the UART_1 default pins for TXD and RXD (``P3`` and ``P4``)
 uart = UART(1, baudrate=9600)
