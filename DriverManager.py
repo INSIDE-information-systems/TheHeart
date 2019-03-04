@@ -1,7 +1,7 @@
-#from bme280 import *
-#from bme280_humidity import *
-#from bme280_temp import *
-#from bme280_pression import *
+from bme280 import *
+from bme280_humidity import *
+from bme280_temp import *
+from bme280_pression import *
 from pir import *
 
 class DriverManager:
