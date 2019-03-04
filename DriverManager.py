@@ -31,8 +31,3 @@ class DriverManager:
 
     def isSensorSupportedIndex(self, sensorIndex):
         return (sensorIndex>0 and sensorIndex<(len(self.liste)-1))
-
-#userChoice = getChosenDriver()
-#userChoice = input()
-#value = driverManger.driver(userChoice)
-#print(value)
