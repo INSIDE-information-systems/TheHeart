@@ -11,7 +11,11 @@ class SessionData:
         except Exception as e:
             print("static configuration:")
             print(e)
-            # TODO: what should we do if the Heart is not configured at all?
+
+            # TODO: what should we do if the Heart is not configured at all :
+            machine.deepsleep(self.sleepTime)
+
+
 
         try:
             self.userConfiguration = ujson.loads(FlashMemory.FlashMemory.restore("user"))
