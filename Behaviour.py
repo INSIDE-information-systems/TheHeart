@@ -1,6 +1,6 @@
 from modes import Modes
 import machine
-import SensorThings
+from sensorThings import SensorThings
 
 class Behaviour:
     def __init__(self, network, SessionData, measurement):
@@ -19,7 +19,11 @@ class Behaviour:
 
         if self.network.hasMessage():
             print("checked message")
-            self.sessionData.applyConfiguration(self.network.getMessage())
+            try:
+                self.sessionData.applyConfiguration(self.network.getMessage())
+            except Exception as e:
+                print(e)
+
 
         print("Deepsleep")
         machine.deepsleep(self.sleepTime)
@@ -27,8 +31,8 @@ class Behaviour:
     def periodic(self):
         print("periodic wake")
         self.measurement.measure(self.sessionData.userConfiguration["sensorName"])
-        msg = SensorThings.sensorthingify(self.measure)
-        network.send(msg)
+        msg = SensorThings.sensorThingify(self.measurement,self.sessionData)
+        self.network.send(msg)
 
     def responsive(self):
         print("responsive wake")
@@ -37,14 +41,14 @@ class Behaviour:
         #if machine.wake_reason()[1] == the pin of the pir sensor
         if machine.wake_reason()[0] == machine.PIN_WAKE:
             self.measurement.measure(self.sessionData.userConfiguration["sensorName"]) # TODO: pir sensor driver
-            msg = SensorThings.sensorthingify(self.measure)
-            network.send(msg)
+            msg = SensorThings.sensorThingify(self.measurement,self.sessionData)
+            self.network.send(msg)
 
     def performance(self):
         print("performance")
         while (not self.network.hasMessage()):
             self.measurement.measure(self.sessionData.userConfiguration["sensorName"]) # TODO: pir sensor driver
-            msg = SensorThings.sensorthingify(self.measure)
-            network.send(msg)
+            msg = SensorThings.sensorThingify(self.measurement,self.sessionData)
+            self.network.send(msg)
             utime.sleep_ms(self.sleepTime)
         self.sessionData.applyConfiguration(self.network.getMessage())
