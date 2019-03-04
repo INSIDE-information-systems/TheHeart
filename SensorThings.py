@@ -1,5 +1,5 @@
 import ujson
-import gpsUltimate
+from gpsUltimate import UltimateGPS
 import Power
 import DriverManager
 
@@ -24,7 +24,7 @@ class SensorThings :
 #La fonction retourne le message de l'observation au format json pour sensorThings API
     def sensorthingify_observation(measurement):
         parameters = {
-        "battery" : battery.getBattery
+        "battery" : 10#battery.getBattery
         #"battery" : battery
         }
 
@@ -39,10 +39,11 @@ class SensorThings :
 
     def sensorThingify(measurement, sessionData):
         print("sensorThingify")
-        msg_obs = SensorThings.SensorThings.sensorthingify_observation(measurement)
-        updateLocation = gpsUltimate.calculDistance(measurement.location[0],sessionData.lastGpsCoordinates[0],measurement.location[1],sessionData.lastGpsCoordinates[1])
+        msg_obs = SensorThings.sensorthingify_observation(measurement)
+        # TODO: crashes if there is no previous gpd position
+        updateLocation = UltimateGPS.calculDistance(measurement.location[0],sessionData.lastGpsCoordinates[0],measurement.location[1],sessionData.lastGpsCoordinates[1])
         if(updateLocation>=5):
-            msg_loc = SensorThings.SensorThings.sensorthingify_location(measurement.location)
+            msg_loc = SensorThings.sensorthingify_location(measurement.location)
             return [msg_loc,msg_obs]
         else:
             return [msg_obs]

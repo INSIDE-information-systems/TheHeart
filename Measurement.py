@@ -1,8 +1,9 @@
 from DriverManager import DriverManager
+import time
 
 class Measurement:
     def __init__(self, gps, driverManager):
-        self.driverManger = driverManager
+        self.driverManager = driverManager
         self.gpsInstance = gps
         self.value = None
         self.location = None
@@ -19,6 +20,8 @@ class Measurement:
             # TODO: how to report a Measurement error?
         try:
             while not self.gpsInstance.isFixed():
+                print("GPS not fixed yet")
+                time.sleep(2)
                 pass
             self.date = self.gpsInstance.getTime()
             self.location = self.gpsInstance.getLocation()

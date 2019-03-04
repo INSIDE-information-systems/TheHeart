@@ -31,19 +31,21 @@ class SessionData:
             print(e)
             self.lastGpsCoordinates = None# TODO: put 0,0 or something
 
-    def applyConfiguration(jsonString):
+    def applyConfiguration(self, jsonString):
         sensorMode = [Modes.Modes.OFF, Modes.Modes.RESPONSIVE, Modes.Modes.PERIODIC]
-        newConfiguration = ujson.loads(jsonString)
         try:
+            newConfiguration = ujson.loads(jsonString)
             self.userConfiguration["mode"] = sensorMode[newConfiguration["sensorMode"]]
         except KeyError as e:
             pass
         try:
+            newConfiguration = ujson.loads(jsonString)
             if DriverManager.isSensorSupportedIndex(sensorMode[newConfiguration["sensorType"]]):
                 self.userConfiguration["sensorName"] = DriverManager.driverByIndex(sensorMode[newConfiguration["sensorType"]])
         except KeyError as e:
             pass
         try:
+            newConfiguration = ujson.loads(jsonString)
             self.userConfiguration["frequency"] = sensorMode[newConfiguration["sensorParameter"]["collectPeriod"]]
         except KeyError as e:
             pass
