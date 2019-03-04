@@ -1,4 +1,3 @@
-
 from machine import UART,RTC
 import utime as time
 from time import sleep
@@ -29,7 +28,7 @@ class UltimateGPS:
                 return False
             return True
         else:
-            raise Exception("GPS timeout") # TODO: custom exception 
+            raise Exception("GPS timeout") # TODO: custom exception
 
     def getLocation(self):
         return (gps.latitude,gps.longitude)
@@ -53,6 +52,7 @@ class UltimateGPS:
         a = sin(dlat / 2)**2 + cos(lat1) * cos(lat2) * sin(dlon / 2)**2
         c = 2 * atan2(sqrt(a), sqrt(1 - a))
         return R * c
+        #TODO: "Rectifier le calcul"
 
 # this uses the UART_1 default pins for TXD and RXD (``P3`` and ``P4``)
 uart = UART(1, baudrate=9600)
