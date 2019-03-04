@@ -9,12 +9,15 @@ class SessionData:
         try:
             self.staticConfiguration = ujson.loads(FlashMemory.FlashMemory.restore("static"))
         except Exception as e:
-            raise # TODO: what should we do if the Heart is not configured at all?
+            print("static configuration:")
+            print(e)
+            # TODO: what should we do if the Heart is not configured at all?
 
         try:
             self.userConfiguration = ujson.loads(FlashMemory.FlashMemory.restore("user"))
         except Exception as e:
             #default configuration
+            print(e)
             self.userConfiguration = {
                 "mode" : Modes.Modes.OFF,
                 "sensorName" : None,
@@ -24,6 +27,8 @@ class SessionData:
         try:
             self.lastGpsCoordinates = ujson.loads(FlashMemory.FlashMemory.restore("gps"))
         except Exception as e:
+            print("GPS file:")
+            print(e)
             self.lastGpsCoordinates = None# TODO: put 0,0 or something
 
     def applyConfiguration(jsonString):
