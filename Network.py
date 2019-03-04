@@ -13,6 +13,7 @@ class Network:
         while not self.lora.has_joined():#replace by async
             time.sleep(2.5)
             print('Not yet joined...')
+        print('joined')
 
     def send(msg): # TODO: optimise for power efficiency + check message lenght (with len(str.encode()) ?)
         # create a LoRa socket
@@ -34,13 +35,13 @@ class Network:
         # get any data received (if any...)
         self.data = s.recv(64) # TODO: set to the correct lenght
 
-    def hasMessage():
+    def hasMessage(self):
         if self.data is None:
             return False
         else:
             return True
 
-    def getMessage():
+    def getMessage(self):
         msg = self.data
         self.data = None
         return msg

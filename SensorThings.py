@@ -38,6 +38,7 @@ class SensorThings :
         return ujson.dumps(msg_observation)
 
     def sensorThingify(measurement, sessionData):
+        print("sensorThingify")
         msg_obs = SensorThings.SensorThings.sensorthingify_observation(measurement)
         updateLocation = gpsUltimate.calculDistance(measurement.location[0],sessionData.lastGpsCoordinates[0],measurement.location[1],sessionData.lastGpsCoordinates[1])
         if(updateLocation>=5):

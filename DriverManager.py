@@ -6,17 +6,19 @@ from pir import *
 
 class DriverManager:
 
+    liste = ("temperatureSensor","pressionSensor","humiditySensor","PIR","si1145","vl53l0")
+
     def driverByName(self, userChoice):
-        if userChoice == liste[0]:
+        if userChoice == self.liste[0]:
             print("ChosenSensor :",userChoice)
             return bme280Temperature.getValue
-        elif userChoice == liste[1]:
+        elif userChoice == self.liste[1]:
             print("ChosenSensor :",userChoice)
             return bme280Pression.getValue
-        elif userChoice == liste[2]:
+        elif userChoice == self.liste[2]:
             print("ChosenSensor :",userChoice)
             return bme280Humidity.getValue
-        elif userChoice == liste[3]:
+        elif userChoice == self.liste[3]:
             print("ChosenSensor :",userChoice)
             return pir.getValue
         else:
@@ -24,19 +26,17 @@ class DriverManager:
 
     def driverByIndex(self, userChoice):
         try:
-            return self.driverByName(liste[userChoice])
+            return self.driverByName(self.liste[userChoice])
         except IndexError as e:
             raise Exception("Sensor not supported")
 
     def isSensorSupportedName(self, sensorName):
-        return sensorName in liste
+        return sensorName in self.liste
 
     def isSensorSupportedIndex(self, sensorIndex):
-        return (sensorIndex>0 and sensorIndex<(len(liste)-1))
+        return (sensorIndex>0 and sensorIndex<(len(self.liste)-1))
 
 #userChoice = getChosenDriver()
 #userChoice = input()
-liste = ("temperatureSensor","pressionSensor","humiditySensor","PIR","si1145","vl53l0")
-driverManger = DriverManager()
 #value = driverManger.driver(userChoice)
 #print(value)
