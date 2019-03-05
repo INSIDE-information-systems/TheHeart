@@ -10,12 +10,6 @@ class UltimateGPS:
         self.startTime = utime.ticks_ms()
         # this uses the UART_1 default pins for TXD and RXD (``P3`` and ``P4``)
         uart = UART(1, baudrate=9600)
-
-        #uart = UART(1, baudrate=9600, pins=('P20','P21'))
-
-        #uart = UART(2, baudrate=9600)
-        #uart.init(9600, bits=8, parity=None, stop=1, tx=17,rx=16)
-
         gps = adafruit_gps.GPS(uart)
         gps.send_command('PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0')
         gps.send_command('PMTK220,1000')
@@ -45,12 +39,12 @@ class UltimateGPS:
         date = day+"/"+month+"/"+year+" "+hour+":"+minute+":"+sec
         return date
     def calculDistance(lat1,lat2,lon1,lon2):
-        dlon = lon2 - lon1
-        dlat = lat2 - lat1
+        dlon = lon1 - lon2
+        dlat = lat1 - lat2
         if dlat>0.00001 and dlon>0.00001:
             print("update")
             return True
-
+        return False
 # this uses the UART_1 default pins for TXD and RXD (``P3`` and ``P4``)
 uart = UART(1, baudrate=9600)
 

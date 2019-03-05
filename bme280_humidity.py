@@ -17,6 +17,5 @@ class HumiditySensor():
         bme = BME280(i2c=i2c)
         return bme.getHumidite
 
-
-bme280Humidity = HumiditySensor()
-bme280Humidity.getValue
+# bme280Humidity = HumiditySensor()
+# bme280Humidity.getValue
