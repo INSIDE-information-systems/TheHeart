@@ -17,7 +17,7 @@ class SensorThings :
 
 #La fonction sensorthingify_observation met en forme un message d'observation au format json
     def sensorthingify_observation(measurement):
-        battery = Power.getBattery()
+        battery = 10#Power.getBattery() # TODO:
         parameters = {
             "battery" : battery
         }
@@ -34,9 +34,11 @@ class SensorThings :
     def sensorThingify(measurement, sessionData):
         print("sensorThingify")
         msg_obs = SensorThings.sensorthingify_observation(measurement)
-
-        if(UltimateGPS.calculDistance(measurement.location[0],sessionData.lastGpsCoordinates[0],measurement.location[1],sessionData.lastGpsCoordinates[1])):
+        if sessionData.lastGpsCoordinates is None:
             msg_loc = SensorThings.sensorthingify_location(measurement.location)
-            return (msg_loc,msg_obs)
         else:
-            return (msg_obs)
+            if(UltimateGPS.calculDistance(measurement.location[0],sessionData.lastGpsCoordinates[0],measurement.location[1],sessionData.lastGpsCoordinates[1])):
+                msg_loc = SensorThings.sensorthingify_location(measurement.location)
+            else:
+                return (msg_obs)
+        return (msg_loc,msg_obs)
