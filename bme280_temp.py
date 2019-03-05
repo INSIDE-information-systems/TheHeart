@@ -18,5 +18,5 @@ class TemperatureSensor():
         bme = BME280(i2c=i2c)
         return bme.getTemperature
 
-bme280Temperature = TemperatureSensor()
-bme280Temperature.getValue
+# bme280Temperature = TemperatureSensor()
+# bme280Temperature.getValue
