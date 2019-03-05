@@ -10,13 +10,20 @@ class Behaviour:
         self.measurement = measurement
         self.sleepTime = 1000*60*self.sessionData.userConfiguration["frequency"]
         self.deepsleepPins = ["P13"]
+        ignoreSensor = False
 
-        if self.sessionData.userConfiguration["mode"] == Modes.PERIODIC:
-            self.periodic()# TODO: check frequency (par rapport aux normes)
-        elif self.sessionData.userConfiguration["mode"] == Modes.RESPONSIVE:
-            self.responsive()
-        elif self.sessionData.userConfiguration["mode"] == Modes.PERFORMANCE:
-            self.performance()# TODO: check frequency
+        if machine.wake_reason()[0] == machine.PIN_WAKE:
+            if (machine.wake_reason()[1][0]).id() == "P13":
+                ignoreSensor = True
+                self.network.send("Get Configuration") # TODO: "ask configuration" message
+
+        if not ignoreSensor:
+            if self.sessionData.userConfiguration["mode"] == Modes.PERIODIC:
+                self.periodic()# TODO: check frequency (par rapport aux normes)
+            elif self.sessionData.userConfiguration["mode"] == Modes.RESPONSIVE:
+                self.responsive()
+            elif self.sessionData.userConfiguration["mode"] == Modes.PERFORMANCE:
+                self.performance()# TODO: check frequency
 
         if self.network.hasMessage():
             print("checked message")
@@ -28,7 +35,7 @@ class Behaviour:
             except Exception as e:
                 print(e)
 
-        machine.pin_deepsleep_wakeup(self.deepsleepPins, machine.WAKEUP_ANY_HIGH, False)
+        machine.pin_deepsleep_wakeup(self.deepsleepPins, machine.WAKEUP_ANY_HIGH, True)
 
         print("Deepsleep")
         machine.deepsleep(self.sleepTime)
@@ -43,17 +50,16 @@ class Behaviour:
         print("responsive wake")
         self.deepsleepPins.append("P9")
         self.deepsleepPins.append("P10")
-        # TODO: what should be done if the wakeup is triggered by the button?
-        #if machine.wake_reason()[1] == the pin of the pir sensor
         if machine.wake_reason()[0] == machine.PIN_WAKE:
-            self.measurement.measure(self.sessionData.userConfiguration["sensorName"]) # TODO: pir sensor driver
-            msg = SensorThings.sensorThingify(self.measurement,self.sessionData)
-            self.network.send(msg)
+            if (machine.wake_reason()[1][0]).id() == "P9" or (machine.wake_reason()[1][0]).id() == "P10":
+                self.measurement.measure(self.sessionData.userConfiguration["sensorName"])
+                msg = SensorThings.sensorThingify(self.measurement,self.sessionData)
+                self.network.send(msg)
 
     def performance(self):
         print("performance")
         while (not self.network.hasMessage()):
-            self.measurement.measure(self.sessionData.userConfiguration["sensorName"]) # TODO: pir sensor driver
+            self.measurement.measure(self.sessionData.userConfiguration["sensorName"])
             msg = SensorThings.sensorThingify(self.measurement,self.sessionData)
             self.network.send(msg)
             utime.sleep_ms(self.sleepTime)
