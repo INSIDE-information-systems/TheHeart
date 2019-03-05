@@ -9,6 +9,7 @@ class Behaviour:
         self.sessionData = SessionData
         self.measurement = measurement
         self.sleepTime = 1000*60*self.sessionData.userConfiguration["frequency"]
+        self.deepsleepPins = ["P13"]
 
         if self.sessionData.userConfiguration["mode"] == Modes.PERIODIC:
             self.periodic()# TODO: check frequency (par rapport aux normes)
@@ -21,8 +22,13 @@ class Behaviour:
             print("checked message")
             try:
                 self.sessionData.applyConfiguration(self.network.getMessage())
+                if self.sessionData.userConfiguration["mode"] == Modes.RESPONSIVE:
+                    self.deepsleepPins.append("P9")
+                    self.deepsleepPins.append("P10")
             except Exception as e:
                 print(e)
+
+        machine.pin_deepsleep_wakeup(self.deepsleepPins, machine.WAKEUP_ANY_HIGH, False)
 
         print("Deepsleep")
         machine.deepsleep(self.sleepTime)
@@ -35,7 +41,8 @@ class Behaviour:
 
     def responsive(self):
         print("responsive wake")
-        machine.pin_deepsleep_wakeup(["P13"], machine.WAKEUP_ANY_HIGH, False)# TODO: set the right pin
+        self.deepsleepPins.append("P9")
+        self.deepsleepPins.append("P10")
         # TODO: what should be done if the wakeup is triggered by the button?
         #if machine.wake_reason()[1] == the pin of the pir sensor
         if machine.wake_reason()[0] == machine.PIN_WAKE:
