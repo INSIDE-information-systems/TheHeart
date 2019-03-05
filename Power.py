@@ -8,11 +8,16 @@ class Power :
 
         #On va lire la pin sur laquelle on a branché la batterie (en Volt)
 
-        adc_pin = machine.Pin(32)
-        adc = machine.ADC(adc_pin)
-        voltageBattery = adc.read()
-        voltageBattery = voltageBattery * (1 / 4095)
-        voltageBattery = voltageBattery*4.14
+        #for esp32:
+        # adc_pin = machine.Pin(32)
+        # adc = machine.ADC(adc_pin)
+        # voltageBattery = adc.read()
+        #voltageBattery = voltageBattery * (1 / 4095)
+
+        #for pycom:
+        adc = machine.ADC()
+        apin = adc.channel(pin='P18')
+        voltageBattery = apin.voltage()/1000*4.14
 
         if(voltageBattery<3):
             battery = 0

@@ -27,9 +27,7 @@ class Network:
         # (waits for the data to be sent and for the 2 receive windows to expire)
         s.setblocking(True)
 
-        # send some data
-        # Send each and every msg in the list 
-        s.send(msg[0])#[0x01, 0x02, 0x03]))
+        s.send(msg)
         time.sleep(10)
 
         # make the socket non-blocking
@@ -37,7 +35,7 @@ class Network:
         s.setblocking(False)
 
         # get any data received (if any...)
-        self.data = s.recv(64) # TODO: set to the correct lenght
+        self.data = s.recv(200) # TODO: set to the correct lenght
         print("message sent")
 
     def hasMessage(self):

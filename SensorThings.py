@@ -17,7 +17,7 @@ class SensorThings :
 
 #La fonction sensorthingify_observation met en forme un message d'observation au format json
     def sensorthingify_observation(measurement):
-        battery = 10#Power.getBattery() # TODO:
+        battery = Power.getBattery()
         parameters = {
             "battery" : battery
         }
