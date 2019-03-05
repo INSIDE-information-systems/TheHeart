@@ -31,7 +31,7 @@ class SessionData:
         except Exception as e:
             print("GPS file:")
             print(e)
-            self.lastGpsCoordinates = None# TODO: put 0,0 or something
+            self.lastGpsCoordinates = None
 
     def applyConfiguration(self, jsonString):
         sensorMode = [Modes.Modes.OFF, Modes.Modes.RESPONSIVE, Modes.Modes.PERIODIC]

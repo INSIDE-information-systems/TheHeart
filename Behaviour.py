@@ -8,10 +8,10 @@ class Behaviour:
         self.network = network
         self.sessionData = SessionData
         self.measurement = measurement
-        self.sleepTime = 1000*60*self.sessionData.userConfiguration["frequency"] 
+        self.sleepTime = 1000*60*self.sessionData.userConfiguration["frequency"]
 
         if self.sessionData.userConfiguration["mode"] == Modes.PERIODIC:
-            self.periodic()# TODO: check frequency
+            self.periodic()# TODO: check frequency (par rapport aux normes)
         elif self.sessionData.userConfiguration["mode"] == Modes.RESPONSIVE:
             self.responsive()
         elif self.sessionData.userConfiguration["mode"] == Modes.PERFORMANCE:
