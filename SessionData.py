@@ -11,7 +11,6 @@ class SessionData:
         except Exception as e:
             print("static configuration:")
             print(e)
-
             machine.deepsleep()
 
 
@@ -34,6 +33,7 @@ class SessionData:
             self.lastGpsCoordinates = None
 
     def applyConfiguration(self, jsonString):
+        # TODO: send error if a parameter is wrong
         sensorMode = [Modes.Modes.OFF, Modes.Modes.RESPONSIVE, Modes.Modes.PERIODIC]
         try:
             newConfiguration = ujson.loads(jsonString)

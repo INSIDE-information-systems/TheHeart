@@ -43,8 +43,9 @@ class Behaviour:
     def periodic(self):
         print("periodic wake")
         self.measurement.measure(self.sessionData.userConfiguration["sensorName"])
-        msg = SensorThings.sensorThingify(self.measurement,self.sessionData)
-        self.network.send(msg)
+        messages = SensorThings.sensorThingify(self.measurement,self.sessionData)
+        for msg in messages:
+            self.network.send(msg)
 
     def responsive(self):
         print("responsive wake")
@@ -53,14 +54,16 @@ class Behaviour:
         if machine.wake_reason()[0] == machine.PIN_WAKE:
             if (machine.wake_reason()[1][0]).id() == "P9" or (machine.wake_reason()[1][0]).id() == "P10":
                 self.measurement.measure(self.sessionData.userConfiguration["sensorName"])
-                msg = SensorThings.sensorThingify(self.measurement,self.sessionData)
-                self.network.send(msg)
+                messages = SensorThings.sensorThingify(self.measurement,self.sessionData)
+                for msg in messages:
+                    self.network.send(msg)
 
     def performance(self):
         print("performance")
         while (not self.network.hasMessage()):
             self.measurement.measure(self.sessionData.userConfiguration["sensorName"])
-            msg = SensorThings.sensorThingify(self.measurement,self.sessionData)
-            self.network.send(msg)
+            messages = SensorThings.sensorThingify(self.measurement,self.sessionData)
+            for msg in messages:
+                self.network.send(msg)
             utime.sleep_ms(self.sleepTime)
         self.sessionData.applyConfiguration(self.network.getMessage())
