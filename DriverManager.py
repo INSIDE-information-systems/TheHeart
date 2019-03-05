@@ -1,7 +1,7 @@
-#from bme280 import *
-#from bme280_humidity import *
-#from bme280_temp import *
-#from bme280_pression import *
+from bme280 import *
+from bme280_humidity import *
+from bme280_temp import *
+from bme280_pression import *
 from pir import *
 
 class DriverManager:
@@ -16,7 +16,7 @@ class DriverManager:
         elif userChoice == self.liste[2]:
             return bme280Humidity.getValue
         elif userChoice == self.liste[3]:
-            return pir.getValue
+            return pir.getValue()
         else:
             raise Exception("Sensor not supported")
 
