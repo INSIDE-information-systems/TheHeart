@@ -4,6 +4,10 @@ import ubinascii
 import time
 
 class Network:
+    """
+    Manages communication with a LoRaWAN network.
+    Requires keys appeui and appkey in the dictionary config.staticConfiguration.
+    """
     def __init__(self, config):
         self.data = None
         self.lora = LoRa(mode=LoRa.LORAWAN, region=LoRa.EU868, device_class = LoRa.CLASS_A)
@@ -17,6 +21,9 @@ class Network:
         print('joined')
 
     def send(self, msg): # TODO: optimise for power efficiency + check message lenght (with len(str.encode()) ?)
+        """
+        Send any buffer like objet to the LoRa network.
+        """
         print("sending message with LoRa:" + msg)
         # create a LoRa socket
         s = socket.socket(socket.AF_LORA, socket.SOCK_RAW)

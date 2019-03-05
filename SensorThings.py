@@ -23,7 +23,7 @@ class SensorThings :
         }
 
         msg_observation = {
-            "resultTime" : measurement.date,
+            #"resultTime" : measurement.date, # TODO: rendre dynamique en fonction du driver l'envoi de la date
             "result" : measurement.value,
             "parameters" : parameters
         }
