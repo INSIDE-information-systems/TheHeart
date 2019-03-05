@@ -34,9 +34,8 @@ class SensorThings :
     def sensorThingify(measurement, sessionData):
         print("sensorThingify")
         msg_obs = SensorThings.sensorthingify_observation(measurement)
-        # TODO: crashes if there is no previous gps position : si pas de previous on l'envoie
-        updateLocation = UltimateGPS.calculDistance(measurement.location[0],sessionData.lastGpsCoordinates[0],measurement.location[1],sessionData.lastGpsCoordinates[1])
-        if(updateLocation>=5):
+
+        if(UltimateGPS.calculDistance(measurement.location[0],sessionData.lastGpsCoordinates[0],measurement.location[1],sessionData.lastGpsCoordinates[1])):
             msg_loc = SensorThings.sensorthingify_location(measurement.location)
             return (msg_loc,msg_obs)
         else:
