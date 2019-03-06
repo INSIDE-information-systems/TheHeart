@@ -1,3 +1,5 @@
 class pir(object):
-    def getValue():
+    def __init__(self):
+        pass
+    def getValue(self):
         return 1
