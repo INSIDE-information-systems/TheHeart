@@ -7,7 +7,6 @@ from pir import *
 class DriverManager:
 
     liste = ("temperatureSensor","pressionSensor","humiditySensor","PIR","si1145","vl53l0")
-
     def driverByName(self, userChoice):
         if userChoice == self.liste[0]:
             return bme280Temperature.getValue
