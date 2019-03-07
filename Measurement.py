@@ -15,6 +15,8 @@ class Measurement:
             print("measurement done")
             print(str(self.value))
         except Exception as e:
+            raise
+            print("Measurement: Measure error:")
             print(e)
             pass
             # TODO: how to report a Measurement error?
@@ -27,6 +29,7 @@ class Measurement:
             self.location = self.gpsInstance.getLocation()
             print("measurement located")
         except Exception as e:
+            print("Measurement: GPS error:")
             print(e)
             # TODO: handle gps timeout : custom ex
             pass
