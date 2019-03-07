@@ -42,6 +42,8 @@ class Network:
         # get any data received (if any...)
         self.data = s.recv(51)
         print("message sent")
+        print("received message:")
+        print(self.data)
 
     def hasMessage(self):
         if self.data is None:
