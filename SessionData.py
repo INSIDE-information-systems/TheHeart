@@ -52,6 +52,13 @@ class SessionData:
             self.userConfiguration["frequency"] = sensorMode[newConfiguration["sensorParameter"]["collectPeriod"]]
         except KeyError as e:
             pass
+        print("applied configuration:")
+        print("  mode:")
+        print(self.userConfiguration["mode"])
+        print("  sensor:")
+        print(self.userConfiguration["sensorName"])
+        print("  frequency:")
+        print(self.userConfiguration["frequency"])
 
     def saveGPS(gps):
         try:

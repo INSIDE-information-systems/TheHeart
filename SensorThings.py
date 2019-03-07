@@ -23,7 +23,7 @@ class SensorThings :
         }
 
         msg_observation = {
-            "resultTime" : measurement.date,
+            #"resultTime" : measurement.date, # TODO: rendre dynamique en fonction du driver l'envoi de la date
             "result" : measurement.value,
             "parameters" : parameters
         }
@@ -37,8 +37,11 @@ class SensorThings :
         if sessionData.lastGpsCoordinates is None:
             msg_loc = SensorThings.sensorthingify_location(measurement.location)
         else:
-            if(UltimateGPS.calculDistance(measurement.location[0],sessionData.lastGpsCoordinates[0],measurement.location[1],sessionData.lastGpsCoordinates[1])):
-                msg_loc = SensorThings.sensorthingify_location(measurement.location)
+            if measurement.gpsInstance.isFixed():
+                if(UltimateGPS.calculDistance(measurement.location[0],sessionData.lastGpsCoordinates[0],measurement.location[1],sessionData.lastGpsCoordinates[1])):
+                    msg_loc = SensorThings.sensorthingify_location(measurement.location)
+                else:
+                    return [msg_obs]
             else:
-                return (msg_obs)
-        return (msg_loc,msg_obs)
+                return [msg_obs]
+        return [msg_loc,msg_obs]
