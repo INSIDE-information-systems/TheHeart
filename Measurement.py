@@ -9,11 +9,10 @@ class Measurement:
         self.location = None
         self.date = None
     def measure(self, sensorName):
-        print("measure:" + sensorName)
         try:
             self.value = self.driverManager.driverByName(sensorName)
             print("measurement done")
-            print(str(self.value))
+            print(self.value)
         except Exception as e:
             print(e)
             pass

@@ -2,6 +2,7 @@ import FlashMemory
 import DriverManager
 import Modes
 import ujson
+import machine
 
 class SessionData:
 

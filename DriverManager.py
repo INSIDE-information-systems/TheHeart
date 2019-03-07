@@ -1,7 +1,7 @@
-from bme280 import *
-from bme280_humidity import *
-from bme280_temp import *
-from bme280_pression import *
+from bmp180 import *
+from bmp180_Temperature import *
+# from bme280_temp import *
+# from bme280_pression import *
 from pir import *
 
 class DriverManager:
@@ -9,7 +9,7 @@ class DriverManager:
     liste = ("temperatureSensor","pressionSensor","humiditySensor","PIR","si1145","vl53l0")
     def driverByName(self, userChoice):
         if userChoice == self.liste[0]:
-            return TemperatureSensor().getValue()
+            return BMP180TEMP.getValue()
         elif userChoice == self.liste[1]:
             return PressionSensor().getValue()
         elif userChoice == self.liste[2]:
